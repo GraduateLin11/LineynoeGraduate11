@@ -1,0 +1,85 @@
+
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(135deg, #5a2a82, #d4af37);
+    color: white;
+    text-align: center;
+}
+
+header {
+    padding: 2em 1em;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+h1, h2, h3 {
+    margin: 0.5em 0;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+h4 {
+    margin: 0.5em 0;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    font-style: italic;
+}
+
+.video-section, .about {
+    margin: 2em auto;
+    max-width: 95%;
+}
+
+video {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.6);
+}
+
+.about p {
+    font-size: 1.3em;
+    margin: 1em;
+}
+
+.graduates {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5em;
+    margin: 2em auto;
+    max-width: 1200px;
+}
+
+.graduate {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1em;
+    width: 180px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.graduate img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.graduate p {
+    margin-top: 0.8em;
+    font-size: 1.1em;
+    color: #fff7d1;
+}
+
+footer {
+    padding: 1em;
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 0.9em;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .graduates {
+        flex-direction: column;
+        align-items: center;
+    }
+}
