@@ -22,7 +22,7 @@
             perspective: 1000px;
         }
 
-        /* Параллакс-баннер */
+        /* Параллакс-баннер с анимацией скролла */
         .parallax-banner {
             height: 100vh;
             position: relative;
@@ -31,6 +31,33 @@
             align-items: center;
             justify-content: center;
             transform-style: preserve-3d;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gold);
+            font-size: 1.2em;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        .scroll-down::after {
+            content: "↓";
+            font-size: 1.5em;
+            margin-top: 5px;
         }
 
         .parallax-bg {
@@ -102,6 +129,13 @@
             font-style: italic;
         }
 
+        h3.video-title {
+            font-size: 2em;
+            margin-bottom: 1em;
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.3s;
+        }
+
         h4 {
             font-size: 1.3em;
             color: white;
@@ -142,7 +176,7 @@
             line-height: 1.6;
         }
 
-        /* Квадратные карточки выпускников */
+        /* Квадратные карточки выпускников - 2 в ряд на мобильных */
         .graduates {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -150,6 +184,13 @@
             margin: 4em auto;
             max-width: 1200px;
             padding: 1em;
+        }
+
+        @media (max-width: 600px) {
+            .graduates {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1em;
+            }
         }
 
         .graduate {
@@ -162,6 +203,12 @@
             transform-style: preserve-3d;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: linear-gradient(135deg, rgba(90, 42, 130, 0.7), rgba(212, 175, 55, 0.3));
+        }
+
+        @media (max-width: 600px) {
+            .graduate {
+                height: 200px;
+            }
         }
 
         .graduate:hover {
@@ -186,11 +233,18 @@
             bottom: -100%;
             left: 0;
             width: 100%;
-            padding: 1.5em;
+            padding: 1em;
             background: rgba(26, 5, 46, 0.9);
             color: white;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-top: 2px solid var(--gold);
+        }
+
+        @media (max-width: 600px) {
+            .graduate-info {
+                padding: 0.5em;
+                font-size: 0.9em;
+            }
         }
 
         .graduate:hover .graduate-info {
@@ -223,17 +277,6 @@
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,0 L100,0 L50,10 Z" fill="%23ffd700" opacity="0.2"/></svg>') repeat-x;
             opacity: 0.3;
         }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5em; }
-            .graduates { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-        }
-
-        /* Эффект параллакса при скролле */
-        .parallax-bg {
-            will-change: transform;
-        }
     </style>
 </head>
 <body>
@@ -246,9 +289,11 @@
             <h2>МКОУ "СОШ с.Старокучергановка" Линейненский филиал</h2>
             <h4>Выпуск 2025 — навсегда в сердце</h4>
         </div>
+        <div class="scroll-down" id="scroll-down">Листайте вниз</div>
     </section>
 
     <section class="video-section">
+        <h3 class="video-title">Послание от выпускников 11 класса</h3>
         <video controls poster="preview.jpg">
             <source src="graduates-video.mp4" type="video/mp4">
             Ваш браузер не поддерживает видео.
@@ -331,14 +376,24 @@
     </footer>
 
     <script>
-        // Параллакс-эффект для баннера
+        // Параллакс-эффект и скролл
         document.addEventListener('DOMContentLoaded', () => {
             const parallaxBanner = document.getElementById('parallax-banner');
             const parallaxBg = document.querySelector('.parallax-bg');
+            const scrollDown = document.getElementById('scroll-down');
 
+            // Параллакс
             window.addEventListener('scroll', () => {
                 const scrollPosition = window.pageYOffset;
                 parallaxBg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+            });
+
+            // Скролл вниз по клику
+            scrollDown.addEventListener('click', () => {
+                window.scrollBy({
+                    top: window.innerHeight - 100,
+                    behavior: 'smooth'
+                });
             });
 
             // Анимация загрузки карточек
