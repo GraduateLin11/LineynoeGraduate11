@@ -277,27 +277,6 @@
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,0 L100,0 L50,10 Z" fill="%23ffd700" opacity="0.2"/></svg>') repeat-x;
             opacity: 0.3;
         }
-         /* Добавляем стили для счётчика */
-        .visitor-counter {
-            margin-top: 1em;
-            font-size: 0.9em;
-            color: rgba(255, 215, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .visitor-counter::before {
-            content: "👁️";
-            font-size: 1.2em;
-        }
-
-        @media (max-width: 600px) {
-            .visitor-counter {
-                font-size: 0.8em;
-            }
-        }
     </style>
 </head>
 <body>
@@ -394,7 +373,6 @@
 
     <footer>
         <p>Создано с любовью выпускниками 2025 года ❤</p>
-        <div class="visitor-counter" id="visitor-counter">Посетителей: загрузка...</div>
     </footer>
 
     <script>
@@ -417,29 +395,6 @@
                     behavior: 'smooth'
                 });
             });
-            // Счётчик посетителей
-            const updateCounter = () => {
-                const counter = document.getElementById('visitor-counter');
-                let visits = localStorage.getItem('pageVisits');
-                
-                if (!visits) {
-                    visits = 1;
-                } else {
-                    visits = parseInt(visits) + 1;
-                }
-                
-                localStorage.setItem('pageVisits', visits);
-                counter.textContent = `Посетителей: ${visits}`;
-                
-                // Анимация
-                counter.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    counter.style.transform = 'scale(1)';
-                }, 300);
-            };
-
-            updateCounter();
-        });
 
             // Анимация загрузки карточек
             const graduates = document.querySelectorAll('.graduate');
