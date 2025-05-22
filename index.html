@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Выпускники 2025 — Линейненский филиал</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@500;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --gold: #ffd700;
             --dark-purple: #1a052e;
             --light-purple: #3a1b6e;
+            --pink: #ff4d9a;
+            --cyan: #00f7ff;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Montserrat', sans-serif;
             background: var(--dark-purple);
-            color: var(--gold);
+            color: white;
             text-align: center;
             overflow-x: hidden;
             perspective: 1000px;
         }
 
-        /* Параллакс-баннер с анимацией скролла */
+        /* Параллакс-баннер */
         .parallax-banner {
             height: 100vh;
             position: relative;
@@ -46,6 +53,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-decoration: none;
         }
 
         @keyframes bounce {
@@ -101,6 +109,8 @@
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
             max-width: 800px;
             margin: 0 auto;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
         }
 
         h1, h2, h3 {
@@ -108,104 +118,195 @@
             font-family: 'Cinzel Decorative', cursive;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
         }
-	    h1 {
-            font-size: 3.5em;
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             letter-spacing: 3px;
             background: linear-gradient(to right, #ffd700, #fff, #ffd700);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: shine 3s infinite;
-        }@keyframes shine {
+            margin-bottom: 0.3em;
+        }
+
+        @keyframes shine {
             0% { background-position: -200%; }
             100% { background-position: 200%; }
         }
 
         h2 {
-            font-size: 1.8em;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
             font-style: italic;
+            color: var(--gold);
         }
 
-        h3.video-title {
-            font-size: 2em;
+        h3 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             margin-bottom: 1em;
-            opacity: 0;
-            animation: fadeIn 1s forwards 0.3s;
+            position: relative;
+            display: inline-block;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--pink), var(--cyan));
+            border-radius: 3px;
         }
 
         h4 {
-            font-size: 1.3em;
+            font-size: clamp(1rem, 2vw, 1.3rem);
             color: white;
             text-shadow: 0 0 5px var(--gold);
+            font-weight: 400;
         }
 
-        .video-section, .about {
-            margin: 4em auto;
-            max-width: 90%;
+        section {
+            padding: 4em 1em;
+            position: relative;
+        }
+
+        .section-title {
             opacity: 0;
-            transform: translateY(50px);
-            animation: fadeIn 1.5s forwards 0.5s;
+            transform: translateY(30px);
+            animation: fadeIn 1s forwards 0.3s;
         }
 
         @keyframes fadeIn {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        video {
-            width: 100%;
-            max-width: 800px;
+        /* Горизонтальная прокрутка фото */
+        .photos-scroll-section {
+            background: linear-gradient(to bottom, rgba(26, 5, 46, 0.9), rgba(58, 27, 110, 0.7));
+            padding: 3em 0;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .photos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1em;
+            position: relative;
+        }
+
+        .scroll-hint {
+            color: var(--gold);
+            font-size: 0.9em;
+            margin-bottom: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.5; }
+        }
+
+        .photos-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 1em 0;
+            gap: 15px;
+        }
+
+        .photos-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .photos-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            border: 2px solid var(--gold);
-            transform: rotateX(5deg);
+        }
+
+        .photos-scroll::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 10px;
+        }
+
+        .photo-item {
+            scroll-snap-align: start;
+            flex: 0 0 auto;
+            width: 250px;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
             transition: all 0.5s ease;
         }
 
-        video:hover {
-            transform: rotateX(0) scale(1.02);
-            box-shadow: 0 0 50px var(--gold);
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* О выпускниках */
+        .about {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2em;
+            background: rgba(26, 5, 46, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeIn 1.5s forwards 0.5s;
         }
 
         .about p {
-            font-size: 1.3em;
-            max-width: 800px;
-            margin: 1em auto;
-            line-height: 1.6;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 1.8;
+            margin: 1em 0;
         }
 
-        /* Квадратные карточки выпускников - 2 в ряд на мобильных */
+        /* Галерея выпускников */
         .graduates {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 2em;
-            margin: 4em auto;
             max-width: 1200px;
-            padding: 1em;
-        }
-
-        @media (max-width: 600px) {
-            .graduates {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1em;
-            }
+            margin: 4em auto;
+            padding: 0 1em;
         }
 
         .graduate {
             position: relative;
-            width: 100%;
-            height: 300px;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transform-style: preserve-3d;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: linear-gradient(135deg, rgba(90, 42, 130, 0.7), rgba(212, 175, 55, 0.3));
-        }
-
-        @media (max-width: 600px) {
-            .graduate {
-                height: 200px;
-            }
+            aspect-ratio: 3/4;
         }
 
         .graduate:hover {
@@ -230,18 +331,11 @@
             bottom: -100%;
             left: 0;
             width: 100%;
-            padding: 1em;
+            padding: 1.5em;
             background: rgba(26, 5, 46, 0.9);
             color: white;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-top: 2px solid var(--gold);
-        }
-
-        @media (max-width: 600px) {
-            .graduate-info {
-                padding: 0.5em;
-                font-size: 0.9em;
-            }
         }
 
         .graduate:hover .graduate-info {
@@ -250,18 +344,23 @@
 
         .graduate-name {
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.3em;
             color: var(--gold);
             margin-bottom: 0.5em;
+            font-family: 'Playfair Display', serif;
         }
-	    footer {
-            padding: 2em;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+
+        /* Футер */
+        footer {
+            padding: 3em 2em;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             border-top: 1px solid var(--gold);
             font-size: 1em;
-            margin-top: 4em;
             position: relative;
-        }footer::before {
+            margin-top: 4em;
+        }
+
+        footer::before {
             content: "";
             position: absolute;
             top: 0;
@@ -271,6 +370,68 @@
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0,0 L100,0 L50,10 Z" fill="%23ffd700" opacity="0.2"/></svg>') repeat-x;
             opacity: 0.3;
         }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 1em 0;
+        }
+
+        .social-links a {
+            color: var(--gold);
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1.5em;
+                margin: 0 1em;
+            }
+
+            .photo-item {
+                width: 200px;
+                height: 250px;
+            }
+
+            .graduates {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1em;
+            }
+
+            .graduate-info {
+                padding: 1em;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-item {
+                width: 180px;
+                height: 220px;
+            }
+
+            .scroll-hint {
+                font-size: 0.8em;
+            }
+        }
+
+        /* Анимации */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
@@ -278,25 +439,62 @@
     <section class="parallax-banner" id="parallax-banner">
         <div class="parallax-bg"></div>
         <div class="stars"></div>
-        <div class="header-content">
+        <div class="header-content floating">
             <h1>Выпускники 2025</h1>
             <h2>Линейненский филиал</h2>
             <h4>Выпуск 2025 — навсегда в сердце</h4>
         </div>
-        <div class="scroll-down" id="scroll-down">Листайте вниз</div>
+        <a href="#graduates-photos" class="scroll-down" id="scroll-down">Листайте вниз</a>
     </section>
 
-    <section class="video-section">
-        <h3 class="video-title">Послание от выпускников 11 класса</h3>
-        <video controls poster="preview.jpg">
-            <source src="graduates-video.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео.
-        </video>
+    <!-- Горизонтальная прокрутка фото -->
+    <section class="photos-scroll-section" id="graduates-photos">
+        <h3 class="section-title">11 класс❤️</h3>
+        <div class="photos-container">
+            <div class="scroll-hint">
+                <i class="fas fa-arrow-left"></i>
+                Листайте вбок чтобы увидеть всех
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="photos-scroll">
+                <div class="photo-item">
+                    <img src="graduatek1.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek2.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek3.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek4.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek5.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek6.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek7.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek8.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek9.jpg" alt="Выпускник">
+                </div>
+                <div class="photo-item">
+                    <img src="graduatek10.jpg" alt="Выпускник">
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="about">
-        <h3>О выпускниках</h3>
+        <h3 class="section-title">О выпускниках</h3>
         <p>В этом году одиннадцатый класс Линейненского филиала оканчивает 8 учеников. Каждый из них — уникальная личность с яркими талантами и безграничным потенциалом!</p>
+        
     </section>
 
     <section class="graduates">
@@ -304,7 +502,7 @@
             <img src="graduate9.jpg" alt="Классный руководитель">
             <div class="graduate-info">
                 <div class="graduate-name">Наш классный руководитель</div>
-                <p>Классный руководитель</p>
+                <p></p>
             </div>
         </div>
         <div class="graduate">
@@ -332,7 +530,7 @@
             <img src="graduate4.jpg" alt="Выпускник 4">
             <div class="graduate-info">
                 <div class="graduate-name">Альберт</div>
-                <p>IT-гений</p>
+                <p>IT - гений</p>
             </div>
         </div>
         <div class="graduate">
@@ -364,34 +562,37 @@
             </div>
         </div>
     </section>
+
     <footer>
-        <p>Сайт создан в развлекательных целях для выпускников 2025.❤️</p>
+        <p>Сайт создан в развлекательных целях</p>
+        <p>© Выпускники 11 класса❤️, 2025</p>
     </footer>
-  <script>
-        // Параллакс-эффект и скролл
+
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Параллакс-эффект
             const parallaxBanner = document.getElementById('parallax-banner');
             const parallaxBg = document.querySelector('.parallax-bg');
-            const scrollDown = document.getElementById('scroll-down');
-
-            // Параллакс
+            
             window.addEventListener('scroll', () => {
                 const scrollPosition = window.pageYOffset;
-                parallaxBg.style.transform = translateY(${scrollPosition * 0.5}px);
-            });
-
-            // Скролл вниз по клику
-            scrollDown.addEventListener('click', () => {
-                window.scrollBy({
-                    top: window.innerHeight - 100,
-                    behavior: 'smooth'
-                });
+                parallaxBg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
             });
 
             // Анимация загрузки карточек
             const graduates = document.querySelectorAll('.graduate');
             graduates.forEach((grad, index) => {
-                grad.style.animationDelay = ${index * 0.1}s;
+                grad.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Плавный скролл
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
             });
         });
     </script>
